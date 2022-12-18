@@ -1,7 +1,18 @@
 import Head from "next/head";
+import Link from "next/link";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
+import data from '../data/players.json';
 
+function Card({ id, name, score }) {
+  return (
+    <a href={`/players/${id}`} className={styles.card}>
+            <h2>{name}</h2>
+            <p>{score}</p>
+          </a>
+        
+  )
+}
 export default function Home() {
   return (
     <div className={styles.container}>
@@ -13,7 +24,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome 2 <a href="https://nextjs.org">Next.js!</a>
+          Welcome 3 <a href="https://nextjs.org">Next.js on Ipad!</a>
         </h1>
 
         <p className={styles.description}>
@@ -22,11 +33,12 @@ export default function Home() {
         </p>
 
         <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
+           {data.sort((a, b) => a.rank > b.rank).map(p => 
+             {
+               return (
+                 <Card key={p.id} id={p.id} name={p.name} score={p.score}></Card>)
+               })}
+           
           <a href="https://nextjs.org/learn" className={styles.card}>
             <h2>Learn &rarr;</h2>
             <p>Learn about Next.js in an interactive course with quizzes!</p>
